@@ -47,9 +47,24 @@ If an optional formatter is missing or cannot process a file, `dmgx` records tha
 
 ## Installation
 
-### Run from a checkout
+### Requirements
 
-Save the script in the repository as `dmgx.py` (the standalone source file can be renamed to this filename), then run:
+- macOS
+- Python 3.11 or newer
+- Apple's `hdiutil` utility, included with macOS
+
+No third-party Python packages are required.
+
+### Install from GitHub
+
+Clone the repository and enter its directory:
+
+```bash
+git clone https://github.com/grendizerh/dmgx.git
+cd dmgx
+```
+
+Make the script executable and run the built-in tests:
 
 ```bash
 chmod +x dmgx.py
@@ -57,20 +72,19 @@ chmod +x dmgx.py
 ./dmgx.py --self-test
 ```
 
-### Install as `dmgx` on macOS
-
-The following assumes the script is named `dmgx.py` in the current directory:
+Install the executable in `~/bin`:
 
 ```bash
 mkdir -p "$HOME/bin"
 install -m 755 ./dmgx.py "$HOME/bin/dmgx"
 ```
 
-Add `~/bin` to your Zsh `PATH` if it is not already there:
+Ensure `~/bin` is on your Zsh PATH:
 
 ```bash
 grep -qxF 'export PATH="$HOME/bin:$PATH"' "$HOME/.zshrc" \
   || printf '\nexport PATH="$HOME/bin:$PATH"\n' >> "$HOME/.zshrc"
+
 source "$HOME/.zshrc"
 ```
 
@@ -81,6 +95,19 @@ dmgx --version
 dmgx --help
 dmgx --self-test
 ```
+
+### Update an existing installation
+
+Pull the latest changes and reinstall:
+
+```bash
+cd "$HOME/dmgx"
+git pull --ff-only
+./dmgx.py --self-test
+install -m 755 ./dmgx.py "$HOME/bin/dmgx"
+dmgx --version
+```
+
 
 ## Quick start
 
@@ -231,6 +258,7 @@ The suite exercises ASAR parsing, archive path traversal defenses, duplicate arc
 
 Bug reports and pull requests are welcome. For reproducible bug reports, include the `dmgx` version, macOS version, Python version, the command used, and the relevant sanitized error output. Do not attach proprietary DMGs or publish extracted application source without permission.
 
+
 ## License
 
-No license is declared in this repository yet. Before publishing it publicly, add a `LICENSE` file specifying the terms under which others may use, modify, and redistribute the project. Without an explicit license, default copyright rules generally apply.
+`dmgx` is licensed under the MIT License. See [LICENSE](LICENSE) for the full license text.
